@@ -1,0 +1,40 @@
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install curl
+curl -sSL https://get.docker.com/ | sh
+
+// docker daemon binds to a Unix socket instead of a tcp port.
+// by default only root can access Unix sockets
+// so create a docker group, add users
+// when docker daemon starts it checks this group
+// then no have to use sudo
+sudo usermod -aG docker ubuntu
+logout
+
+// testing
+// docker client contacts docker daemon
+// docker daemon pulls image from docker Hub
+// docker daemon creates new container from that img which
+// runs the executable that produces "hello world"
+// docker daemon streams that output to the docker client,
+// which sends it to your terminal
+docker run hello-world
+
+
+scp dir -> remote
+sudo apt-get install python-pip
+sudo pip install docker-compose
+
+// scale sets the number of containers to run for a service
+// services are defined in .yaml
+docker-compose scale app=3
+
+
+// run the stack
+// -d suppress output
+docker-compose up -d
+
+// check setup
+docker images
+docker ps
+docker-compose ps

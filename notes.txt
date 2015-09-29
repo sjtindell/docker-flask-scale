@@ -1,0 +1,65 @@
+STACK
+
+                             <- app
+reverseproxy <- loadbalancer <- app <- database
+                             <- app
+
+
+NGINX
+http://nginx.org/en/docs/beginners_guide.html
+* web server. common reverse proxy.
+* event-driven vs. apache process-driven.
+* 1 master process, many worker processes. master reads/evaluates
+  config and manages workers. workers process requests. use an event-based
+  model and OS-dependant mechanisms to distribute requests. # of workers
+  is configured or auto-set by # of cores.
+* the way nginx and its modules work is determined by a config file.
+  /usr/local/nginx/conf.
+* To start nginx, run the executable.
+  $ nginx
+  $ nginx -s [stop,quit,reload,reopen]
+  -s flag means signal
+* config file is made of modules controlled by directives. if a block
+  directive can have other directives in its context, it is called a
+  context: events, http, server, location
+* http {
+    server {
+      location / {
+        root /data/www;
+      }
+    }
+  }
+* server will respond to requets for "/" from whatever defined location
+
+
+DEFINITIONS
+web server - listens on a port for an http request from a browser. process
+             the request and respond. http requests often contain urls that
+             match server filepaths or api.
+proxy server - a computer that offers a network service to allow clients
+               to make indirect connections to another network. a client
+               connects to the proxy server, then requests a connection,
+               file, or other resource from a different server.
+reverse proxy - a type of proxy that --retrieves-- resources on behalf of
+                clients from one or more servers. these resources are
+                returned as if they went through the proxy themselves.
+
+
+HAPROXY
+http://www.haproxy.org/#desc
+* Balances requests. Redirects traffic.
+* event-driven
+* high availability, load balancing and proxying for TCP and HTTP-based
+  applications
+
+
+WEBAPP
+* client-server software application
+* runs on a server and knows how to respond to requests
+* responds programmatically. takes user input, deals with data/databases.
+
+
+DATABASE
+* sql: mysql, postgresql
+* nosql: mongodb, redis
+
